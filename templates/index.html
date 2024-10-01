@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+    <style>
+      .hero {
+        position: relative;
+        background-image: url("static/cook1.jpeg");
+        background-size: cover;
+        background-position: center;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Translucent dark overlay */
+        z-index: 1;
+      }
+      .hero-body {
+        position: relative;
+        z-index: 2;
+      }
+    </style>
+
+    <title>Plotly Graph Visualizations</title>
+  </head>
+  <body>
+    <!-- Banner Section -->
+    <section class="hero is-primary is-medium">
+      <!-- Hero head: will stick at the top -->
+      <div class="hero-head">
+        <nav class="navbar">
+          <div class="container">
+            <div class="navbar-brand">
+              <a class="navbar-item">
+                <img
+                  src="https://bulma.io/assets/images/bulma-type-white.png"
+                  alt="Logo"
+                />
+              </a>
+              <span class="navbar-burger" data-target="navbarMenuHeroA">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </span>
+            </div>
+            <div id="navbarMenuHeroA" class="navbar-menu">
+              <div class="navbar-end">
+                <a class="navbar-item is-active"> Home </a>
+                <a class="navbar-item"> Documentation </a>
+                <span class="navbar-item">
+                  <a class="button is-primary is-inverted">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Github</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Hero content: will be in the middle -->
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <p class="title">Am I Cooked?</p>
+          <p class="subtitle">A Job Visualisation For ICT Students</p>
+        </div>
+      </div>
+
+      <!-- Hero footer: will stick at the bottom -->
+      <div class="hero-foot">
+        <nav class="tabs">
+          <div class="container">
+            <ul>
+              <li class="is-active"><a>Overview</a></li>
+              <li><a>Singapore</a></li>
+              <li><a>US</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Graph Sections -->
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-half">
+            <h2 class="title is-4">SG</h2>
+            <!-- Insert the Plotly graph HTML here -->
+            {{ ms_sg_html | safe }}
+          </div>
+          <div class="column is-half">
+            <h2 class="title is-4">US</h2>
+            <!-- Insert the Plotly graph HTML here -->
+            {{ ms_us_html | safe }}
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-half">
+            <h2 class="title is-4">Graph 3</h2>
+            <!-- Insert the Plotly graph HTML here -->
+            <!-- {{ ms_sg_html | safe }} -->
+          </div>
+          <div class="column is-half">
+            <h2 class="title is-4">Graph 4</h2>
+            <!-- Insert the Plotly graph HTML here -->
+            <!-- {{ graph4_html | safe }} -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
