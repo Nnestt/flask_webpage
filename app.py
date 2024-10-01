@@ -18,6 +18,7 @@ def create_plotly_graph():
     graph_html = pio.to_html(fig, full_html=False)
     return graph_html
 
+
 # MOST SEEKED JOBS IN US
 
 def most_seeked_us():
@@ -51,7 +52,7 @@ def most_seeked_us():
   return ms_us_html
 
 # END MOST SEEKED JOBS IN US 
-
+# =================================================================================================
 
 
 # MOST SEEKED JOBS IN SG
@@ -85,8 +86,12 @@ def most_seeked_sg():
   return ms_sg_html
 
 # END MOST SEEKED JOBS IN SG
+# =================================================================================================
 
 
+
+# ROUTES
+# =================================================================================================
 # Homepage route
 @app.route('/')
 def home():

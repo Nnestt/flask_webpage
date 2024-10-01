@@ -7,30 +7,9 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
     />
-    <style>
-      .hero {
-        position: relative;
-        background-image: url("static/cook1.jpeg");
-        background-size: cover;
-        background-position: center;
-      }
-      .hero::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5); /* Translucent dark overlay */
-        z-index: 1;
-      }
-      .hero-body {
-        position: relative;
-        z-index: 2;
-      }
-    </style>
+    <link rel="stylesheet" href="static/styles.css" />
 
-    <title>Plotly Graph Visualizations</title>
+    <title>ICT Job Visualisation</title>
   </head>
   <body>
     <!-- Banner Section -->
@@ -58,7 +37,11 @@
                 <a class="navbar-item is-active"> Home </a>
                 <a class="navbar-item"> Documentation </a>
                 <span class="navbar-item">
-                  <a class="button is-primary is-inverted">
+                  <a
+                    class="button is-primary is-inverted"
+                    href="https://github.com/users/Nnestt/projects/2"
+                    target="_blank"
+                  >
                     <span class="icon">
                       <i class="fab fa-github"></i>
                     </span>
@@ -84,9 +67,9 @@
         <nav class="tabs">
           <div class="container">
             <ul>
-              <li class="is-active"><a>Overview</a></li>
-              <li><a>Singapore</a></li>
-              <li><a>US</a></li>
+              <li class="is-active" data-tab="overview"><a>Overview</a></li>
+              <li data-tab="singapore"><a>Singapore</a></li>
+              <li data-tab="us"><a>US</a></li>
             </ul>
           </div>
         </nav>
@@ -122,5 +105,71 @@
         </div>
       </div>
     </section>
+
+    <!-- Content Sections -->
+    <section id="overview" class="section content-section">
+      <div class="container">
+        <h2 class="title is-4">Overview</h2>
+        <p>Overview content goes here.</p>
+      </div>
+    </section>
+
+    <section id="singapore" class="section content-section is-hidden">
+      <div class="container">
+        <h2 class="title is-4">Singapore</h2>
+        <!-- Insert the Plotly graph HTML here -->
+        <p>singapore content</p>
+      </div>
+    </section>
+
+    <section id="us" class="section content-section is-hidden">
+      <div class="container">
+        <h2 class="title is-4">US</h2>
+        <!-- Insert the Plotly graph HTML here -->
+        <p>us content</p>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Navbar burger toggle
+        const navbarBurgers = Array.prototype.slice.call(
+          document.querySelectorAll(".navbar-burger"),
+          0
+        );
+
+        if (navbarBurgers.length > 0) {
+          navbarBurgers.forEach((el) => {
+            el.addEventListener("click", () => {
+              const target = el.dataset.target;
+              const $target = document.getElementById(target);
+              el.classList.toggle("is-active");
+              $target.classList.toggle("is-active");
+            });
+          });
+        }
+
+        // Tab switching
+        const tabs = document.querySelectorAll(".tabs li");
+        const sections = document.querySelectorAll(".content-section");
+
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            console.log("Tab clicked:", tab); // Log the clicked tab element
+            tabs.forEach((item) => item.classList.remove("is-active"));
+            tab.classList.add("is-active");
+
+            const target = tab.getAttribute("data-tab");
+            sections.forEach((section) => {
+              if (section.id === target) {
+                section.classList.remove("is-hidden");
+              } else {
+                section.classList.add("is-hidden");
+              }
+            });
+          });
+        });
+      });
+    </script>
   </body>
 </html>
