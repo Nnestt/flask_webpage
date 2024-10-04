@@ -18,6 +18,62 @@ def create_plotly_graph():
     graph_html = pio.to_html(fig, full_html=False)
     return graph_html
 
+# COMPANIES WITH MOST JOB POSTINGS IN US
+
+def most_job_us():
+  company_counts = df['company'].value_counts().reset_index()
+  company_counts.columns = ['company', 'job_postings']
+
+  # Create a horizontal bar chart
+  fig = px.bar(company_counts,
+        y='company',
+        x='job_postings',
+        title="Companies with Most Job Postings (US)",
+        labels={'job_postings': 'Number of Job Postings', 'company': 'Company Name'},
+        color='job_postings',
+        orientation='h')
+
+  # Update layout for font size and y-axis limits
+  fig.update_layout(
+    yaxis=dict(title='Company Name', tickfont_size=14,),
+    xaxis=dict(title='Number of Job Postings', tickfont_size=14),
+    title=dict(font=dict(size=18)),
+    yaxis_range=[10.5, -0.5]  # Adjust range to fit the plot
+  )
+
+  # Convert the Plotly figure to an HTML div string
+  c_us_html = pio.to_html(fig, full_html=False)
+  return c_us_html
+
+# =================================================================================================
+
+# COMPANIES WITH MOST JOB POSTINGS IN SG
+def most_job_sg():
+  company_counts = df2['Company Name'].value_counts().reset_index()
+  company_counts.columns = ['company', 'job_postings']
+
+  # Create a horizontal bar chart
+  fig = px.bar(company_counts,
+        y='company',
+        x='job_postings',
+        title="Companies with Most Job Postings (Singapore)",
+        labels={'job_postings': 'Number of Job Postings', 'company': 'Company Name'},
+        color='job_postings',
+        orientation='h')
+
+  # Update layout for font size and y-axis limits
+  fig.update_layout(
+    yaxis=dict(title='Company Name', tickfont_size=14,),
+    xaxis=dict(title='Number of Job Postings', tickfont_size=14),
+    title=dict(font=dict(size=18)),
+    yaxis_range=[10.5, -0.5]  # Adjust range to fit the plot
+  )
+
+  # Convert the Plotly figure to an HTML div string
+  c_sg_html = pio.to_html(fig, full_html=False)
+  return c_sg_html
+
+# =================================================================================================
 
 # MOST SEEKED JOBS IN US
 
@@ -31,7 +87,7 @@ def most_seeked_us():
   # job_counts['jobNo'] = pd.to_numeric(job_counts['jobNo'], errors='coerce')
 
   # Create a horizontal bar chart
-  fig = px.bar(job_counts.head(20),
+  fig = px.bar(job_counts.head(21),
         y='jobtitle',
         x='jobNo',
         title="Most seeked Jobs (US)",
@@ -41,7 +97,7 @@ def most_seeked_us():
 
   # Update layout for font size and y-axis limits
   fig.update_layout(
-    yaxis=dict(title='Job Title', tickfont_size=10,),
+    yaxis=dict(title='Job Title', tickfont_size=14,),
     xaxis=dict(title='Number of Job Postings', tickfont_size=14),
     title=dict(font=dict(size=16)),
     yaxis_range=[-0.5, 20.5],  # Adjust range to fit the plot
@@ -65,7 +121,7 @@ def most_seeked_sg():
   job_counts['jobtitle'] = job_counts['jobtitle'].apply(lambda x: (x[:max_title_length] + '...') if len(x) > max_title_length else x)
 
   # Create a horizontal bar chart
-  fig = px.bar(job_counts.head(20),
+  fig = px.bar(job_counts.head(21), #20 doesnt show rank 1
         y='jobtitle',
         x='jobNo',
         title="Most seeked Jobs (Singapore)",
@@ -75,7 +131,7 @@ def most_seeked_sg():
 
   # Update layout for font size and y-axis limits
   fig.update_layout(
-    yaxis=dict(title='Job Title', tickfont_size=10,),
+    yaxis=dict(title='Job Title', tickfont_size=14,),
     xaxis=dict(title='Number of Job Postings', tickfont_size=14),
     title=dict(font=dict(size=16)),
     yaxis_range=[-0.5, 20.5],  # Adjust range to fit the plot
@@ -88,6 +144,9 @@ def most_seeked_sg():
 # END MOST SEEKED JOBS IN SG
 # =================================================================================================
 
+# SKILLS IN DEMAND
+
+
 
 
 # ROUTES
@@ -98,7 +157,14 @@ def home():
     graph_html = create_plotly_graph()
     ms_us_html = most_seeked_us()
     ms_sg_html = most_seeked_sg()
-    return render_template('index.html', graph_html=graph_html, ms_us_html=ms_us_html, ms_sg_html=ms_sg_html)
+    c_us_html = most_job_us()
+    c_sg_html = most_job_sg()
+    return render_template('index.html', 
+                          graph_html=graph_html, 
+                          ms_us_html=ms_us_html, 
+                          ms_sg_html=ms_sg_html, 
+                          c_us_html=c_us_html, 
+                          c_sg_html=c_sg_html)
 
 # @app.route('/sg')
 # def about():

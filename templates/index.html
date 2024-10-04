@@ -8,22 +8,33 @@
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
     />
     <link rel="stylesheet" href="static/styles.css" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
 
     <title>ICT Job Visualisation</title>
   </head>
   <body>
     <!-- Banner Section -->
-    <section class="hero is-primary is-medium">
+    <section class="hero is-primary is-large">
+      <!-- Video Background -->
+      <video autoplay muted loop id="bg-video">
+        <source src="static/cook.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      
       <!-- Hero head: will stick at the top -->
       <div class="hero-head">
         <nav class="navbar">
           <div class="container">
             <div class="navbar-brand">
               <a class="navbar-item">
-                <img
+                <!-- <img
                   src="https://bulma.io/assets/images/bulma-type-white.png"
                   alt="Logo"
-                />
+                /> -->
               </a>
               <span class="navbar-burger" data-target="navbarMenuHeroA">
                 <span></span>
@@ -57,13 +68,13 @@
       <!-- Hero content: will be in the middle -->
       <div class="hero-body">
         <div class="container has-text-centered">
-          <p class="title">Am I Cooked?</p>
-          <p class="subtitle">A Job Visualisation For ICT Students</p>
+          <p class="titled">Am I Cooked?</p>
+          <p class="subtitled">A Job Visualisation For ICT Students</p>
         </div>
       </div>
 
       <!-- Hero footer: will stick at the bottom -->
-      <div class="hero-foot">
+      <!-- <div class="hero-foot">
         <nav class="tabs">
           <div class="container">
             <ul>
@@ -73,41 +84,131 @@
             </ul>
           </div>
         </nav>
+      </div> -->
+    </section>
+
+    <section class="hero is-medium">
+      <div class="hero-body has-background-white">
+        <div class="container">
+          <div class="columns">
+            <div class="column is-6">
+              <h1 class="titled is-1 black">Overview</h1>
+              <hr class="content-divider has-background-black-ter">
+              <h2 class="subtitled black">
+                The ICT job market is a dynamic and fast-paced industry that offers
+                many opportunities for professionals with the right skills and
+                experience. In this report, we will provide an overview of the ICT job
+                market in Singapore and the United States, including the most sought
+                after jobs and skills in demand. We will also present data visualizations
+                to help you better understand the job market and make informed decisions
+                about your career.
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <h1 class="titled-small">Job Market Overview</h1>
+        <div class="columns">
+          <div class="column is-half">
+            <h2 class="subtitled">Singapore</h2>
+            <p class="subtitled-small">
+              Singapore is a global hub for technology and innovation. The
+              country has a strong ICT sector and is home to many multinational
+              companies. The demand for ICT professionals in Singapore is high,
+              with many job opportunities available in areas such as software
+              development, cybersecurity, and data analytics.
+            </p>
+          </div>
+          <div class="column is-half">
+            <h2 class="subtitled">US</h2>
+            <p class="subtitled-small">
+              The United States is a global leader in technology and innovation.
+              The country has a large ICT sector and is home to many of the
+              world's leading technology companies. The demand for ICT
+              professionals in the US is high, with many job opportunities
+              available in areas such as software development, cybersecurity,
+              and data analytics.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Graph Sections -->
+
+    <!-- MOST JOBS Section -->
     <section class="section">
       <div class="container">
+        <h2 class="titled-small">Companies With Most Job Postings</h2>
         <div class="columns">
           <div class="column is-half">
-            <h2 class="title is-4">SG</h2>
             <!-- Insert the Plotly graph HTML here -->
-            {{ ms_sg_html | safe }}
+              {{ c_sg_html | safe }}
           </div>
           <div class="column is-half">
-            <h2 class="title is-4">US</h2>
             <!-- Insert the Plotly graph HTML here -->
-            {{ ms_us_html | safe }}
+            {{ c_us_html | safe }}
           </div>
         </div>
-        <div class="columns">
-          <div class="column is-half">
-            <h2 class="title is-4">Graph 3</h2>
-            <!-- Insert the Plotly graph HTML here -->
-            <!-- {{ ms_sg_html | safe }} -->
-          </div>
-          <div class="column is-half">
-            <h2 class="title is-4">Graph 4</h2>
-            <!-- Insert the Plotly graph HTML here -->
-            <!-- {{ graph4_html | safe }} -->
-          </div>
+        <div class="subtitled-small">
+          <p>
+            The above graphs show the companies with the most job postings. Although some of the companies are HR recruitment 
+            companies (eg. PERSOLKELLY, Robert Half Technology [both rank 1 in their respective countries]), the data provides an 
+            insight into the companies that are actively hiring ICT professionals.
+          </p>
         </div>
       </div>
     </section>
 
+    <!-- MOST SEEKED JOBS Section -->
+    <section class="section">
+      <div class="container">
+        <h1 class="titled-small">Most seeked jobs</h1>
+        <div class="columns">
+          <div class="column is-half">
+            <!-- Insert the Plotly graph HTML here -->
+            {{ ms_sg_html | safe }}
+          </div>
+          <div class="column is-half">
+            <!-- Insert the Plotly graph HTML here -->
+            {{ ms_us_html | safe }}
+          </div>
+        </div>
+        <div class="subtitled-small">
+          <p>
+            On a macro level, Singapore seeks for more technical roles whereas the US seeks for more managerial/business oriented roles
+            (Project Manager, Business Systems Analyst). Additionally, there are significantly more Information Security job postings in Singapore 
+            (Insider Threat Analyst, LAN/WAN Administrator, etc.) than in the US.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Other Section -->
+    <section class="section">
+      <div class="container">
+        <h2 class="titled-small">Skills In Demand</h2>
+        <div class="columns">
+          <div class="column is-half">
+            <h2 class="title is-4">Graph 3</h2>
+            <!-- Insert the Plotly graph HTML here -->
+            {{ c_us_html | safe }}
+          </div>
+          <div class="column is-half">
+            <h2 class="title is-4">Graph 4</h2>
+            <!-- Insert the Plotly graph HTML here -->
+              {{ c_sg_html | safe }}
+          </div>
+        </div>
+      </div>
+
+
     <!-- Content Sections -->
-    <section id="overview" class="section content-section">
+    <!-- <section id="overview" class="section content-sect</section>ion">
       <div class="container">
         <h2 class="title is-4">Overview</h2>
         <p>Overview content goes here.</p>
@@ -117,7 +218,6 @@
     <section id="singapore" class="section content-section is-hidden">
       <div class="container">
         <h2 class="title is-4">Singapore</h2>
-        <!-- Insert the Plotly graph HTML here -->
         <p>singapore content</p>
       </div>
     </section>
@@ -125,10 +225,9 @@
     <section id="us" class="section content-section is-hidden">
       <div class="container">
         <h2 class="title is-4">US</h2>
-        <!-- Insert the Plotly graph HTML here -->
         <p>us content</p>
       </div>
-    </section>
+    </section> -->
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
@@ -150,25 +249,25 @@
         }
 
         // Tab switching
-        const tabs = document.querySelectorAll(".tabs li");
-        const sections = document.querySelectorAll(".content-section");
+        //   const tabs = document.querySelectorAll(".tabs li");
+        //   const sections = document.querySelectorAll(".content-section");
 
-        tabs.forEach((tab) => {
-          tab.addEventListener("click", () => {
-            console.log("Tab clicked:", tab); // Log the clicked tab element
-            tabs.forEach((item) => item.classList.remove("is-active"));
-            tab.classList.add("is-active");
+        //   tabs.forEach((tab) => {
+        //     tab.addEventListener("click", () => {
+        //       console.log("Tab clicked:", tab); // Log the clicked tab element
+        //       tabs.forEach((item) => item.classList.remove("is-active"));
+        //       tab.classList.add("is-active");
 
-            const target = tab.getAttribute("data-tab");
-            sections.forEach((section) => {
-              if (section.id === target) {
-                section.classList.remove("is-hidden");
-              } else {
-                section.classList.add("is-hidden");
-              }
-            });
-          });
-        });
+        //       const target = tab.getAttribute("data-tab");
+        //       sections.forEach((section) => {
+        //         if (section.id === target) {
+        //           section.classList.remove("is-hidden");
+        //         } else {
+        //           section.classList.add("is-hidden");
+        //         }
+        //       });
+        //     });
+        //   });
       });
     </script>
   </body>
