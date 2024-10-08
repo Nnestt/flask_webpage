@@ -2,27 +2,30 @@ from flask import Flask, render_template
 import plotly.express as px
 import plotly.io as pio
 import pandas as pd
+from functions import explodeSkill, explodeSkillCata, getTopXSkill, catagoriseSkills
 
 app = Flask(__name__)
 
-df = pd.read_csv('data\\USprocessed.csv')
-df2 = pd.read_csv('data\\SGprocessed.csv')
+# PREPROCESSED DATA
+df = pd.read_csv('data\\processedUS.csv')
+df2 = pd.read_csv('data\\processedSG.csv')
+# FOR SKILLS PORTION
+df_exploded = explodeSkill(df)
+top_20_skills_us = getTopXSkill(df_exploded,20)
+df2_exploded = explodeSkill(df2)
+top_20_skills_sg = getTopXSkill(df2_exploded,20)
 
-# Sample function to create a Plotly graph
-def create_plotly_graph():
-    # Create a simple scatter plot using Plotly
-    ex = px.data.iris()  # Example dataset
-    fig = px.scatter(ex, x="sepal_width", y="sepal_length", color="species", title="Iris Dataset Scatter Plot")
-    
-    # Convert the Plotly figure to an HTML div string
-    graph_html = pio.to_html(fig, full_html=False)
-    return graph_html
+# GRAPHS =================================================================================================
 
 # COMPANIES WITH MOST JOB POSTINGS IN US
 
 def most_job_us():
   company_counts = df['company'].value_counts().reset_index()
   company_counts.columns = ['company', 'job_postings']
+
+  # Truncate comapny titles that are too long
+  max_title_length = 20
+  company_counts['company'] = company_counts['company'].apply(lambda x: (x[:max_title_length] + '...') if len(x) > max_title_length else x)
 
   # Create a horizontal bar chart
   fig = px.bar(company_counts,
@@ -51,6 +54,11 @@ def most_job_us():
 def most_job_sg():
   company_counts = df2['Company Name'].value_counts().reset_index()
   company_counts.columns = ['company', 'job_postings']
+
+  # Truncate comapny titles that are too long
+  max_title_length = 20
+  company_counts['company'] = company_counts['company'].apply(lambda x: (x[:max_title_length] + '...') if len(x) > max_title_length else x)
+
 
   # Create a horizontal bar chart
   fig = px.bar(company_counts,
@@ -85,6 +93,11 @@ def most_seeked_us():
 
   # # Ensure jobNo is of numeric type
   # job_counts['jobNo'] = pd.to_numeric(job_counts['jobNo'], errors='coerce')
+
+    # Truncate job titles that are too long
+  max_title_length = 20
+  job_counts['jobtitle'] = job_counts['jobtitle'].apply(lambda x: (x[:max_title_length] + '...') if len(x) > max_title_length else x)
+
 
   # Create a horizontal bar chart
   fig = px.bar(job_counts.head(21),
@@ -146,25 +159,139 @@ def most_seeked_sg():
 
 # SKILLS IN DEMAND
 
+# SG SKILLS ==========================================================================================
 
 
+def sg_top_skills(top_20_skills_sg):
+    fig = px.bar(top_20_skills_sg,
+                  x='Skill',
+                  y='Count',
+                  title='Top 20 Skills (Singapore)',
+                  color='Skill')
+
+    fig.update_layout(
+        yaxis=dict(title='Skill', tickfont_size=14),
+        xaxis=dict(title='Count', tickfont_size=14),
+        title=dict(font=dict(size=18)),
+    )
+    sg_skills_html = pio.to_html(fig, full_html=False)
+    return sg_skills_html
+
+def sg_top_skills_cat(top_20_skills_sg):
+    top_20_skills_sg['catagory'] = catagoriseSkills(top_20_skills_sg)
+    fig = px.sunburst(top_20_skills_sg, path=['catagory', 'Skill'], 
+                  values='Count',title='Top Catagories Overall (Singapore)', color='catagory')
+    sg_skills_html_cat = pio.to_html(fig, full_html=False)
+    return sg_skills_html_cat
+
+
+def sg_se_skills():
+  tempDF = explodeSkillCata(df2, 'Software Engineering')
+  dfTop20 = getTopXSkill(tempDF, 20)
+
+  dfTop20['catagory'] = catagoriseSkills(dfTop20)
+  fig = px.sunburst(dfTop20, path=['catagory', 'Skill'], 
+            values='Count', title='Top Catagories Software Engineering (Singapore)', color='catagory')
+  sg_se_skills_html = pio.to_html(fig, full_html=False)
+  return sg_se_skills_html
+
+def sg_is_skills():
+  # Cyber (SG)
+  tempDF = explodeSkillCata(df2, 'Cybersecurity')
+  dfTop20 = getTopXSkill(tempDF, 20)
+
+  dfTop20['catagory'] = catagoriseSkills(dfTop20)
+  fig = px.sunburst(dfTop20, path=['catagory', 'Skill'], 
+            values='Count', title='Top Catagories Cybersecurity (Singapore)', color='catagory')
+  sg_is_skills_html = pio.to_html(fig, full_html=False)
+  return sg_is_skills_html
+
+# SG SKILLS END ==========================================================================================
+
+# US SKILLS ==========================================================================================
+
+def us_top_skills(top_20_skills_us):
+  fig = px.bar(top_20_skills_us,
+                x='Skill',
+                y='Count',
+                title='Top 20 Skills (US)',
+                color='Skill',)
+
+  fig.update_layout(
+      yaxis=dict(title='Skill', tickfont_size=14,),
+      xaxis=dict(title='Count', tickfont_size=14),
+      title=dict(font=dict(size=18)),
+  )
+  us_skills_html = pio.to_html(fig, full_html=False)
+  return us_skills_html
+
+def us_top_skills_cat(top_20_skills_us):
+    top_20_skills_us['catagory'] = catagoriseSkills(top_20_skills_us)
+    fig = px.sunburst(top_20_skills_us, path=['catagory', 'Skill'], 
+                      values='Count', title='Most Sought After Skills US', color='catagory')
+    us_skills_html_cat = pio.to_html(fig, full_html=False)
+    return us_skills_html_cat
+
+def us_se_skills():
+  # Developer (dice)
+  tempDF = explodeSkillCata(df, 'Software Engineering')
+  dfTop20 = getTopXSkill(tempDF, 20)
+
+  dfTop20['catagory'] = catagoriseSkills(dfTop20)
+  fig = px.sunburst(dfTop20, path=['catagory', 'Skill'], 
+            values='Count', title='Top Catagories Software Engineering (International)', color='catagory')
+  us_se_skills_html = pio.to_html(fig, full_html=False)
+  return us_se_skills_html
+
+
+def us_is_skills():
+  # Cyber (dice)
+  tempDF = explodeSkillCata(df, 'Cybersecurity')
+  dfTop20 = getTopXSkill(tempDF, 20)
+
+  dfTop20['catagory'] = catagoriseSkills(dfTop20)
+  fig = px.sunburst(dfTop20, path=['catagory', 'Skill'], 
+            values='Count', title='Top Catagories Cybersecurity (International)', color='catagory')
+  us_is_skills_html = pio.to_html(fig, full_html=False)
+  return us_is_skills_html
+
+# US SKILLS END  ==========================================================================================
+
+
+# GRAPHS END ==========================================================================================
 
 # ROUTES
 # =================================================================================================
 # Homepage route
 @app.route('/')
 def home():
-    graph_html = create_plotly_graph()
     ms_us_html = most_seeked_us()
     ms_sg_html = most_seeked_sg()
     c_us_html = most_job_us()
     c_sg_html = most_job_sg()
+    sg_top_skills_html = sg_top_skills(top_20_skills_sg)
+    us_top_skills_html = us_top_skills(top_20_skills_us)
+    sg_top_skills_cat_html = sg_top_skills_cat(top_20_skills_sg)
+    us_top_skills_cat_html = us_top_skills_cat(top_20_skills_sg)
+    sg_se_skills_html = sg_se_skills()
+    sg_is_skills_html = sg_is_skills()
+    us_se_skills_html = us_se_skills()
+    us_is_skills_html = us_is_skills()
     return render_template('index.html', 
-                          graph_html=graph_html, 
                           ms_us_html=ms_us_html, 
                           ms_sg_html=ms_sg_html, 
                           c_us_html=c_us_html, 
-                          c_sg_html=c_sg_html)
+                          c_sg_html=c_sg_html,
+                          sg_top_skills_html=sg_top_skills_html,
+                          us_top_skills_html=us_top_skills_html,
+                          sg_top_skills_cat_html= sg_top_skills_cat_html,
+                          us_top_skills_cat_html= us_top_skills_cat_html,
+                          sg_se_skills_html=sg_se_skills_html,
+                          sg_is_skills_html=sg_is_skills_html,
+                          us_se_skills_html=us_se_skills_html,
+                          us_is_skills_html=us_is_skills_html
+                          
+                          )
 
 # @app.route('/sg')
 # def about():
