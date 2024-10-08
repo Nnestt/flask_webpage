@@ -1,5 +1,15 @@
 import numpy as np
 
+# Define a common color map for categories
+category_colors = {
+  "programming languages": "#636EFA",
+  "frameworks & library": "#EF553B",
+  "project management": "#00CC96",
+  "data management/analytics": "#AB63FA",
+  "development/testing": "#FFA15A",
+  "others": "#19D3F3"
+}
+
 #Makes each values in a dict lowercase
 def _lowercase(obj):
     if isinstance(obj, dict):

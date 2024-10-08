@@ -2,7 +2,7 @@ from flask import Flask, render_template
 import plotly.express as px
 import plotly.io as pio
 import pandas as pd
-from functions import explodeSkill, explodeSkillCata, getTopXSkill, catagoriseSkills
+from functions import explodeSkill, explodeSkillCata, getTopXSkill, catagoriseSkills, category_colors
 
 app = Flask(__name__)
 
@@ -180,7 +180,11 @@ def sg_top_skills(top_20_skills_sg):
 def sg_top_skills_cat(top_20_skills_sg):
     top_20_skills_sg['catagory'] = catagoriseSkills(top_20_skills_sg)
     fig = px.sunburst(top_20_skills_sg, path=['catagory', 'Skill'], 
-                  values='Count',title='Top Catagories Overall (Singapore)', color='catagory')
+                  values='Count',title='Top Catagories Overall (Singapore)', color='catagory',
+                  color_discrete_map=category_colors)
+    fig.update_layout(
+    margin = dict(t=80, l=10, r=10, b=10),
+    )
     sg_skills_html_cat = pio.to_html(fig, full_html=False)
     return sg_skills_html_cat
 
@@ -191,7 +195,11 @@ def sg_se_skills():
 
   dfTop20['catagory'] = catagoriseSkills(dfTop20)
   fig = px.sunburst(dfTop20, path=['catagory', 'Skill'], 
-            values='Count', title='Top Catagories Software Engineering (Singapore)', color='catagory')
+            values='Count', title='Top Catagories Software Engineering (Singapore)', color='catagory',
+            color_discrete_map=category_colors)
+  fig.update_layout(
+  margin = dict(t=80, l=10, r=10, b=10),
+  )
   sg_se_skills_html = pio.to_html(fig, full_html=False)
   return sg_se_skills_html
 
@@ -202,7 +210,11 @@ def sg_is_skills():
 
   dfTop20['catagory'] = catagoriseSkills(dfTop20)
   fig = px.sunburst(dfTop20, path=['catagory', 'Skill'], 
-            values='Count', title='Top Catagories Cybersecurity (Singapore)', color='catagory')
+            values='Count', title='Top Catagories Cybersecurity (Singapore)', color='catagory',
+            color_discrete_map=category_colors)
+  fig.update_layout(
+  margin = dict(t=80, l=10, r=10, b=10),
+  )
   sg_is_skills_html = pio.to_html(fig, full_html=False)
   return sg_is_skills_html
 
@@ -228,7 +240,11 @@ def us_top_skills(top_20_skills_us):
 def us_top_skills_cat(top_20_skills_us):
     top_20_skills_us['catagory'] = catagoriseSkills(top_20_skills_us)
     fig = px.sunburst(top_20_skills_us, path=['catagory', 'Skill'], 
-                      values='Count', title='Most Sought After Skills US', color='catagory')
+                      values='Count', title='Most Sought After Skills US', color='catagory',
+                      color_discrete_map=category_colors)
+    fig.update_layout(
+    margin = dict(t=80, l=10, r=10, b=10),
+    )
     us_skills_html_cat = pio.to_html(fig, full_html=False)
     return us_skills_html_cat
 
@@ -239,7 +255,11 @@ def us_se_skills():
 
   dfTop20['catagory'] = catagoriseSkills(dfTop20)
   fig = px.sunburst(dfTop20, path=['catagory', 'Skill'], 
-            values='Count', title='Top Catagories Software Engineering (International)', color='catagory')
+            values='Count', title='Top Catagories Software Engineering (International)', color='catagory',
+            color_discrete_map=category_colors)
+  fig.update_layout(
+  margin = dict(t=80, l=10, r=10, b=10),
+  )
   us_se_skills_html = pio.to_html(fig, full_html=False)
   return us_se_skills_html
 
@@ -251,7 +271,11 @@ def us_is_skills():
 
   dfTop20['catagory'] = catagoriseSkills(dfTop20)
   fig = px.sunburst(dfTop20, path=['catagory', 'Skill'], 
-            values='Count', title='Top Catagories Cybersecurity (International)', color='catagory')
+            values='Count', title='Top Catagories Cybersecurity (International)', color='catagory',
+            color_discrete_map=category_colors)
+  fig.update_layout(
+  margin = dict(t=80, l=10, r=10, b=10),
+  )
   us_is_skills_html = pio.to_html(fig, full_html=False)
   return us_is_skills_html
 
