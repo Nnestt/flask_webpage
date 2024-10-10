@@ -7,8 +7,8 @@ from functions import explodeSkill, explodeSkillCata, getTopXSkill, catagoriseSk
 app = Flask(__name__)
 
 # PREPROCESSED DATA
-df = pd.read_csv('data\\processedUS.csv')
-df2 = pd.read_csv('data\\processedSG.csv')
+df = pd.read_csv('data\\processed_us.csv')
+df2 = pd.read_csv('data\\processed_sg.csv')
 # FOR SKILLS PORTION
 df_exploded = explodeSkill(df)
 top_20_skills_us = getTopXSkill(df_exploded,20)

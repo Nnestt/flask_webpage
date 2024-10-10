@@ -7,7 +7,8 @@ category_colors = {
   "project management": "#00CC96",
   "data management/analytics": "#AB63FA",
   "development/testing": "#FFA15A",
-  "others": "#19D3F3"
+  "others": "#19D3F3",
+  "certificate": "#FF6692"
 }
 
 #Makes each values lowercase, works for most class
