@@ -8,7 +8,7 @@ category_colors = {
   "data management/analytics": "#AB63FA",
   "development/testing": "#FFA15A",
   "others": "#19D3F3",
-  "certificate": "#FF6692"
+  "certifications": "#FF6692"
 }
 
 #Makes each values lowercase, works for most class
@@ -65,7 +65,7 @@ def catagoriseSkills(dataF):
               "Project Management": ["Project Management", "Development Manager", "IT Manager","communication", "Business Analyst", "Agile", "Scrum", "Collaboration", "TDD", "SDLC", "Consulting","Management","Project","DevOps","Application", "Risk Management","Leadership"],
               "Data Management/Analytics": ["Data Analysis", "Data Architecture", "Data Analytics", "Big Data", "Machine Learning", "Statistical Analysis","Analysis","Architecture","Oracle","Database","API"],
               "Development/Testing": ["Testing", "Development","Test Case","Test","Black Box","White Box","Git","GitHub","Software Development","Firewall","Windows","Linux","Systems","Mobile"],
-              "Certificate": ["CISSP", "CISM","CCNA","GISF","CAPM"],
+              "Certifications": ["CISSP", "CISM","CCNA","GISF","CAPM"],
             }
     
     parentList = []

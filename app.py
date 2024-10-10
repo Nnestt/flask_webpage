@@ -296,7 +296,7 @@ def home():
     sg_top_skills_html = sg_top_skills(top_20_skills_sg)
     us_top_skills_html = us_top_skills(top_20_skills_us)
     sg_top_skills_cat_html = sg_top_skills_cat(top_20_skills_sg)
-    us_top_skills_cat_html = us_top_skills_cat(top_20_skills_sg)
+    us_top_skills_cat_html = us_top_skills_cat(top_20_skills_us)
     sg_se_skills_html = sg_se_skills()
     sg_is_skills_html = sg_is_skills()
     us_se_skills_html = us_se_skills()
