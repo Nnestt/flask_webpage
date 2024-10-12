@@ -7,8 +7,10 @@ category_colors = {
   "project management": "#00CC96",
   "data management/analytics": "#AB63FA",
   "development/testing": "#FFA15A",
+  "cloud & identity security": "#FF6692",
+  "governance,risk,compliance(grc)": "#B6E880",
+  "network security": "#FF97FF",
   "others": "#19D3F3",
-  "certifications": "#FF6692"
 }
 
 #Makes each values lowercase, works for most class
@@ -60,12 +62,15 @@ def getTopXSkill(dataF, x):
 #Group Skills into Catagory
 def catagoriseSkills(dataF):
     #Skills Groups
-    catagoriesDict = {"Programming Languages": ["Java", "Python", "C++", "C#", "VB.NET", "R", "BASIC","JavaScript","HTML","HTTP", "CSS","ASP.NET", "PHP","jQuery","AJAX","SQL", "NoSQL","GO"],
-              "Frameworks & Library":[".NET", "Angular", "AngularJS", "Bootstrap", "Node.js", "Express", "j2EE", "WebSphere", "Citrix",'AWS',"React","Backend","software","Web","NIST","Azure","Cloud"],
-              "Project Management": ["Project Management", "Development Manager", "IT Manager","communication", "Business Analyst", "Agile", "Scrum", "Collaboration", "TDD", "SDLC", "Consulting","Management","Project","DevOps","Application", "Risk Management","Leadership"],
-              "Data Management/Analytics": ["Data Analysis", "Data Architecture", "Data Analytics", "Big Data", "Machine Learning", "Statistical Analysis","Analysis","Architecture","Oracle","Database","API"],
-              "Development/Testing": ["Testing", "Development","Test Case","Test","Black Box","White Box","Git","GitHub","Software Development","Firewall","Windows","Linux","Systems","Mobile"],
-              "Certifications": ["CISSP", "CISM","CCNA","GISF","CAPM"],
+    catagoriesDict = {
+        "Programming Languages": ["Java", "Python", "C++", "C#", "VB.NET", "R", "BASIC","JavaScript","HTML", "CSS","ASP.NET", "PHP","jQuery","AJAX","SQL", "NoSQL","GO","C","Assembly","Rust","Kotlin", "Swift"],
+        "Frameworks & Library":[".NET", "Angular", "AngularJS", "Bootstrap", "Node.js", "Express", "j2EE", "WebSphere", "Citrix",'AWS',"React", "Vue", "Django", "Flask", "Spring Boot"],
+        "Project Management": ["Project Management", "Development Manager", "IT Manager","communication", "Business Analyst", "Agile", "Scrum", "Collaboration", "TDD", "SDLC", "Consulting","Management","Project","DevOps","Application","Leadership"],
+        "Data Management/Analytics": ["Data Analysis", "Data Architecture", "Data Analytics", "Big Data", "Machine Learning", "Statistical Analysis","Analysis","Architecture","Oracle","Database","API"],
+        "Development/Testing": ["Testing", "Development","Test Case","Test","Black Box","White Box","Git","GitHub","Software Development","Windows","Linux","Systems","Mobile","Azure","Cloud","web","software","http", "backend"],
+        "Cloud & Identity Security": ["Cloud Security", "AWS", "Azure", "GCP", "Identity Management", "Access Management","Security Operations (SOC)", "SIEM", "DLP (Data Loss Prevention)", "Blue Team","Security Analyst", "Incident Response", "Threat Intelligence", "CISM", "CISSP"],
+        "Governance,Risk,Compliance(GRC)": ["InfoSec", "Risk Management", "Compliance", "Governance", "Security Policy","Security Audit", "Security Awareness", "ISO 27001", "NIST", "PCI-DSS", "HIPAA", "GDPR"],
+        "Network Security":["Network Security", "Application Security", "Penetration Testing", "Ethical Hacking","Vulnerability Analyst", "Red Team", "IDS/IPS", "Firewall", "Malware Analysis","Forensics", "OSCP", "CEH"]
             }
     
     parentList = []
