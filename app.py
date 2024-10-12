@@ -164,19 +164,24 @@ def most_seeked_sg():
 
 
 def sg_top_skills(top_20_skills_sg):
-    fig = px.bar(top_20_skills_sg,
-                  x='Skill',
-                  y='Count',
-                  title='Top 20 Skills (Singapore)',
-                  color='Skill')
+  # Truncate skill titles that are too long
+  max_title_length = 15
+  top_20_skills_sg['Skill'] = top_20_skills_sg['Skill'].apply(
+    lambda x: (x[:max_title_length] + '...') if len(x) > max_title_length else x)
 
-    fig.update_layout(
-        yaxis=dict(title='Skill', tickfont_size=14),
-        xaxis=dict(title='Count', tickfont_size=14),
-        title=dict(font=dict(size=18)),
-    )
-    sg_skills_html = pio.to_html(fig, full_html=False)
-    return sg_skills_html
+  fig = px.bar(top_20_skills_sg,
+          x='Skill',
+          y='Count',
+          title='Top 20 Skills (Singapore)',
+          color='Skill')
+
+  fig.update_layout(
+    yaxis=dict(title='Count', tickfont_size=14),
+    xaxis=dict(title='Skill', tickfont_size=14),
+    title=dict(font=dict(size=18)),
+  )
+  sg_skills_html = pio.to_html(fig, full_html=False)
+  return sg_skills_html
 
 def sg_top_skills_cat(top_20_skills_sg):
     top_20_skills_sg['catagory'] = catagoriseSkills(top_20_skills_sg)
@@ -231,8 +236,8 @@ def us_top_skills(top_20_skills_us):
                 color='Skill',)
 
   fig.update_layout(
-      yaxis=dict(title='Skill', tickfont_size=14,),
-      xaxis=dict(title='Count', tickfont_size=14),
+        yaxis=dict(title='Count', tickfont_size=14),
+        xaxis=dict(title='Skill', tickfont_size=14),
       title=dict(font=dict(size=18)),
   )
   us_skills_html = pio.to_html(fig, full_html=False)
