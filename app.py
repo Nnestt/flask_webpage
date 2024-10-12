@@ -25,7 +25,8 @@ def most_job_us():
 
   # Truncate comapny titles that are too long
   max_title_length = 20
-  company_counts['company'] = company_counts['company'].apply(lambda x: (x[:max_title_length] + '...') if len(x) > max_title_length else x)
+  company_counts['company'] = company_counts['company'].apply(
+    lambda x: (x[:max_title_length] + '...') if len(x) > max_title_length else x)
 
   # Create a horizontal bar chart
   fig = px.bar(company_counts,
@@ -44,7 +45,7 @@ def most_job_us():
     yaxis_range=[10.5, -0.5]  # Adjust range to fit the plot
   )
 
-  # Convert the Plotly figure to an HTML div string
+  # Convert the Plotly figure to a HTML div string
   c_us_html = pio.to_html(fig, full_html=False)
   return c_us_html
 
@@ -180,7 +181,7 @@ def sg_top_skills(top_20_skills_sg):
 def sg_top_skills_cat(top_20_skills_sg):
     top_20_skills_sg['catagory'] = catagoriseSkills(top_20_skills_sg)
     fig = px.sunburst(top_20_skills_sg, path=['catagory', 'Skill'], 
-                  values='Count',title='Top Catagories Overall (Singapore)', color='catagory',
+                  values='Count',title='Most Sought after Skills (Singapore)', color='catagory',
                   color_discrete_map=category_colors)
     fig.update_layout(
     margin = dict(t=80, l=10, r=10, b=10),
@@ -195,7 +196,7 @@ def sg_se_skills():
 
   dfTop20['catagory'] = catagoriseSkills(dfTop20)
   fig = px.sunburst(dfTop20, path=['catagory', 'Skill'], 
-            values='Count', title='Top Catagories Software Engineering (Singapore)', color='catagory',
+            values='Count', title='Top Categories Software Engineering (Singapore)', color='catagory',
             color_discrete_map=category_colors)
   fig.update_layout(
   margin = dict(t=80, l=10, r=10, b=10),
@@ -210,7 +211,7 @@ def sg_is_skills():
 
   dfTop20['catagory'] = catagoriseSkills(dfTop20)
   fig = px.sunburst(dfTop20, path=['catagory', 'Skill'], 
-            values='Count', title='Top Catagories Cybersecurity (Singapore)', color='catagory',
+            values='Count', title='Top Categories Cybersecurity (Singapore)', color='catagory',
             color_discrete_map=category_colors)
   fig.update_layout(
   margin = dict(t=80, l=10, r=10, b=10),
@@ -240,7 +241,7 @@ def us_top_skills(top_20_skills_us):
 def us_top_skills_cat(top_20_skills_us):
     top_20_skills_us['catagory'] = catagoriseSkills(top_20_skills_us)
     fig = px.sunburst(top_20_skills_us, path=['catagory', 'Skill'], 
-                      values='Count', title='Most Sought After Skills US', color='catagory',
+                      values='Count', title='Most Sought After Skills (US)', color='catagory',
                       color_discrete_map=category_colors)
     fig.update_layout(
     margin = dict(t=80, l=10, r=10, b=10),
@@ -255,7 +256,7 @@ def us_se_skills():
 
   dfTop20['catagory'] = catagoriseSkills(dfTop20)
   fig = px.sunburst(dfTop20, path=['catagory', 'Skill'], 
-            values='Count', title='Top Catagories Software Engineering (International)', color='catagory',
+            values='Count', title='Top Categories Software Engineering (US)', color='catagory',
             color_discrete_map=category_colors)
   fig.update_layout(
   margin = dict(t=80, l=10, r=10, b=10),
@@ -271,7 +272,7 @@ def us_is_skills():
 
   dfTop20['catagory'] = catagoriseSkills(dfTop20)
   fig = px.sunburst(dfTop20, path=['catagory', 'Skill'], 
-            values='Count', title='Top Catagories Cybersecurity (International)', color='catagory',
+            values='Count', title='Top Categories Cybersecurity (US)', color='catagory',
             color_discrete_map=category_colors)
   fig.update_layout(
   margin = dict(t=80, l=10, r=10, b=10),
