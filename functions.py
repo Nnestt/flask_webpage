@@ -51,9 +51,9 @@ def getTopXSkill(dataF, x):
         skill_counts = dataF['skills_split'].value_counts()
 
         #Get the top 20 skills
-        top_20_skills_sg = skill_counts.head(x).reset_index()
-        top_20_skills_sg.columns = ['Skill', 'Count']
-        return top_20_skills_sg
+        top_20_skills = skill_counts.head(x).reset_index()
+        top_20_skills.columns = ['Skill', 'Count']
+        return top_20_skills
     else:
         print("Invalid number")
         

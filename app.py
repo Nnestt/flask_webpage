@@ -26,7 +26,7 @@ def most_job_us():
   # Truncate comapny titles that are too long
   max_title_length = 20
   company_counts['company'] = company_counts['company'].apply(
-    lambda x: (x[:max_title_length] + '...') if len(x) > max_title_length else x)
+    lambda x: (x[:max_title_length] + '...') if len(x) > max_title_length else x) #slice and appends ... if length is more than 20
 
   # Create a horizontal bar chart
   fig = px.bar(company_counts,
@@ -322,14 +322,6 @@ def home():
                           us_is_skills_html=us_is_skills_html
                           
                           )
-
-# @app.route('/sg')
-# def about():
-#     return render_template('sg.html')
-
-# @app.route('/us')
-# def about():
-#     return render_template('us.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
